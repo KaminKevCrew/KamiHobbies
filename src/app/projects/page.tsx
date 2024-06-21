@@ -1,7 +1,8 @@
 import React from 'react';
 import CADProjectCard from "~/app/_components/CADProjectCard";
 
-const Projects: React.FC = () => {
+// const Projects: React.FC = () => {
+export default function Page() {
     return(
         <div>
             <CADProjectCard
@@ -38,4 +39,4 @@ const Projects: React.FC = () => {
     )
 }
 
-export default Projects;
+// export default Projects;

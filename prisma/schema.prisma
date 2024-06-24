@@ -18,3 +18,15 @@ model Post {
 
     @@index([name])
 }
+
+model CadProject {
+    id          Int         @id @default(autoincrement())
+    name        String
+    description String
+    stlFile     Bytes
+    screenshots Bytes
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+
+    @@index([name])
+}

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import CADProjectCard from "~/app/_components/CADProjectCard";
 import { api } from "~/trpc/server";
+import ThreeScene from "~/app/_components/ThreeScene";
+import React from "react";
 
 
 export default async function Home() {
@@ -8,38 +10,34 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      {/*<div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">*/}
-      {/*    <CADProjectCard*/}
-      {/*        stlFileLocation={"/stlModels/B&WFPM5CenterSpeakerCeilingMount.stl"}*/}
-      {/*        cameraFoV={90}*/}
-      {/*        cardTitle={"Speaker and Ceiling Mount"}*/}
-      {/*        cardText={"This is a custom designed ceiling mount for the center B&W FPM5 speaker in my home theater."}*/}
-      {/*    />*/}
-      {/*    <CADProjectCard*/}
-      {/*        stlFileLocation={"/stlModels/CinemaQuadFrame.stl"}*/}
-      {/*        cameraFoV={90}*/}
-      {/*        cardTitle={"Concept Cinema Quad Frame"}*/}
-      {/*        cardText={"This is a concept for a 7\" quad which is intended to have a tilting control for the camera on the front of the frame, to allow for shooting videos which would otherwise not be possible."}*/}
-      {/*    />*/}
-      {/*    <CADProjectCard*/}
-      {/*        stlFileLocation={"/stlModels/BikeComputerMount.stl"}*/}
-      {/*        cameraFoV={90}*/}
-      {/*        cardTitle={"Custom Cycling Computer Mount"}*/}
-      {/*        cardText={"This is a custom cycling computer mount that mounts on my one piece integrated handlebars and takes a standard Garmin insert to hold the computer securely in place."}*/}
-      {/*    />*/}
-      {/*    <CADProjectCard*/}
-      {/*        stlFileLocation={"/stlModels/ModifiedDactyl.stl"}*/}
-      {/*        cameraFoV={90}*/}
-      {/*        cardTitle={"Modified Dactyl"}*/}
-      {/*        cardText={"This is a modified Dactyl I made, because I wanted to generate an easily modifiable CAD file, rather than the typical STLs that have been available for other Dactyls."}*/}
-      {/*    />*/}
-      {/*    <CADProjectCard*/}
-      {/*        stlFileLocation={"/stlModels/RandomCrystalThing.stl"}*/}
-      {/*        cameraFoV={90}*/}
-      {/*        cardTitle={"Crystal Thing"}*/}
-      {/*        cardText={"I was just having fun in CAD for this one. There's no point or purpose, but I think it looks cool."}*/}
-      {/*    />*/}
-      {/*</div>*/}
+      <div className="card w-96 bg-base-100 shadow-xl z-0">
+        <figure className="h-1/2 z-0"></figure>
+        <div className="h-1/2 card-body z-0">
+          <h2 className="card-title text-black z-0">Software Projects</h2>
+          <p className="text-black z-0"></p>
+        </div>
+      </div>
+      <div className="card w-96 bg-base-100 shadow-xl z-0">
+        <figure className="h-1/2 z-0"></figure>
+        <div className="h-1/2 card-body z-0">
+          <h2 className="card-title text-black z-0">Hardware Projects</h2>
+          <p className="text-black z-0"></p>
+        </div>
+      </div>
+      <div className="card w-96 bg-base-100 shadow-xl z-0">
+        <figure className="h-1/2 z-0"></figure>
+        <div className="h-1/2 card-body z-0">
+          <h2 className="card-title text-black z-0">CAD Projects</h2>
+          <p className="text-black z-0"></p>
+        </div>
+      </div>
+      <div className="card w-96 bg-base-100 shadow-xl z-0">
+        <figure className="h-1/2 z-0"></figure>
+        <div className="h-1/2 card-body z-0">
+          <h2 className="card-title text-black z-0">Other Projects</h2>
+          <p className="text-black z-0"></p>
+        </div>
+      </div>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
-import { TRPCReactProvider } from "~/trpc/react";
+
 import NavBar from "~/app/_components/NavBar";
 
 export const metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
           <NavBar/>
         </div>
         <div className="z-0">
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+         {children}
         </div>
       </body>
     </html>

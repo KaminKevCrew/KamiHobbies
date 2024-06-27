@@ -1,22 +1,24 @@
 import React from 'react';
-import ThreeScene from "~/app/_components/ThreeScene";
+import Image from 'next/image';
+import Link from "next/link";
+import {AiFillGithub} from "rocketicons/ai";
 
-interface CADProjectCard {
-    stlFileLocation: string;
-    cameraFoV: number;
+interface ProjectCard {
+    cardImageUrl: string;
+    cardImageAlt: string
     cardTitle: string;
     cardText: string;
     cardBadges: Array<string>;
 }
 
-const CADProjectCard: React.FC<CADProjectCard> = ({ stlFileLocation, cameraFoV, cardTitle, cardText, cardBadges }) => {
+const ProjectCard: React.FC<ProjectCard> = ({cardImageUrl, cardImageAlt, cardTitle, cardText, cardBadges}) => {
     const badges = cardBadges.map((badge) => {
         return <div key={badge} className="badge badge-outline">{badge}</div>
     })
 
     return(
         <div className="card w-96 bg-neutral shadow-xl z-0">
-            <figure className="h-1/2 z-0"><ThreeScene stlFileLocation={stlFileLocation} cameraFoV={cameraFoV}/></figure>
+            <figure className="h-1/2 z-0"><Image src={cardImageUrl} alt={cardImageAlt}/></figure>
             <div className="h-1/2 card-body z-0">
                 <h2 className="card-title z-0">{cardTitle}</h2>
                 <p className="z-0">{cardText}</p>
@@ -25,7 +27,7 @@ const CADProjectCard: React.FC<CADProjectCard> = ({ stlFileLocation, cameraFoV, 
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default CADProjectCard;
+export default ProjectCard;

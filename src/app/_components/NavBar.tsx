@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
+import { AiFillBook, AiFillLinkedin, AiFillGithub } from "rocketicons/ai";
 
 export default function NavBar() {
 
@@ -38,16 +39,16 @@ export default function NavBar() {
                         <div className="card-body">
                             <h3 className="card-title">Kevin Kaminski</h3>
                             <Link href="/about">
-                                    About Me
+                                <AiFillBook className="icon-accent icon-lg"/> About Me
                             </Link>
                             <Link href="https://www.linkedin.com/in/kaminskikeving/" passHref legacyBehavior>
                                 <a target="_blank">
-                                    LinkedIn
+                                    <AiFillLinkedin className="icon-accent icon-lg"/> LinkedIn
                                 </a>
                             </Link>
                             <Link href="https://github.com/KaminKevCrew" passHref legacyBehavior>
                                 <a target="_blank">
-                                    Github
+                                    <AiFillGithub className="icon-accent icon-lg"/> Github
                                 </a>
                             </Link>
                         </div>

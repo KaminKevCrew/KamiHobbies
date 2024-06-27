@@ -1,5 +1,6 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import icons from 'rocketicons/tailwind'
 
 export default {
   content: ["./src/**/*.tsx"],
@@ -10,7 +11,11 @@ export default {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [
+      require('daisyui'),
+      icons
+  ],
+
   daisyui: {
     themes: true,
     darkTheme: "dark",

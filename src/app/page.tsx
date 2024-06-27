@@ -5,7 +5,7 @@ import React from "react";
 export default async function Home() {
 
   return (
-    <main className="flex min-h-screen flex-wrap items-center justify-center bg-base-100 from-[#2e026d] to-[#15162c] text-white">
+    <main className="flex min-h-screen flex-wrap justify-center bg-base-100 from-[#2e026d] to-[#15162c] text-white">
       <Link href="/software">
           <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
               <figure className="h-1/2 z-0">

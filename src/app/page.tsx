@@ -9,7 +9,7 @@ export default async function Home() {
       <Link href="/software">
           <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
               <figure className="h-1/2 z-0">
-                  <Image src="/Arduino IDE Screenshot.png" alt="Screenshot of Arduino code" width={500} height={500}/>
+                  <Image src="/softwarePhotos/Arduino IDE Screenshot.png" alt="Screenshot of Arduino code" width={500} height={500}/>
               </figure>
               <div className="h-1/2 card-body z-0">
                   <h2 className="card-title z-0">Software Projects</h2>
@@ -20,7 +20,7 @@ export default async function Home() {
       <Link href="/hardware">
           <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
               <figure className="h-1/2 z-0">
-                  <Image src="/PCB Screenshot Example.png" alt="Screenshot of PCB 3D Model" width={500} height={500}/>
+                  <Image src="/hardwarePhotos/PCB Screenshot Example.png" alt="Screenshot of PCB 3D Model" width={500} height={500}/>
               </figure>
               <div className="h-1/2 card-body z-0">
                   <h2 className="card-title z-0">Hardware Projects</h2>
@@ -31,7 +31,7 @@ export default async function Home() {
       <Link href="/3dModeling">
           <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
               <figure className="h-1/2 z-0">
-                  <Image src="/3d Modeling Screenshot.png" alt="Screenshot of 3D CAD Model" width={500} height={500}/>
+                  <Image src="/CADPhotos/3d Modeling Screenshot.png" alt="Screenshot of 3D CAD Model" width={500} height={500}/>
               </figure>
               <div className="h-1/2 card-body z-0">
                   <h2 className="card-title z-0">CAD Projects</h2>

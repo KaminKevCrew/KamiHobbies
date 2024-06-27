@@ -13,6 +13,4 @@ const config = {
     },
 };
 
-const isProd = process.env.NODE_ENV === 'production';
-
-export const assetPrefix = isProd ? '/kamihobbies' : '';
+export default config;

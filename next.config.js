@@ -15,4 +15,4 @@ const config = {
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export const assetPrefix = isProd ? '/your-repository-name' : '';
+export const assetPrefix = isProd ? '/kamihobbies' : '';

@@ -6,8 +6,17 @@ import {CardBadges} from "~/app/_components/cardBadges";
 export default function Software() {
 
     return(
-        <div>
-            <Link href="/software/teensyHomeTheaterControl">
+        <div className="z-0 flex flex-wrap">
+            <Link href="/software/irrationalArt" className="m-10">
+                <ProjectCard
+                    cardImageUrl="/softwarePhotos/IrrationalArt500DigitsOfE.png"
+                    cardImageAlt="500 Digits of E"
+                    cardTitle="Irrational Art"
+                    cardText="A 2D mapper of decimal digits, mapped to a unit circle."
+                    cardBadges={[CardBadges.javascript, CardBadges.software]}
+                />
+            </Link>
+            <Link href="/software/teensyHomeTheaterControl" className="m-10">
                 <ProjectCard
                     cardImageUrl=""
                     cardImageAlt="Teensy hardware implementation"
@@ -17,7 +26,7 @@ export default function Software() {
                     cardBadges={[CardBadges.arduino, CardBadges.serial, CardBadges.python, CardBadges.software]}
                 />
             </Link>
-            <Link href="/software/customFIController">
+            <Link href="/software/customFIController" className="m-10">
                 <ProjectCard
                     cardImageUrl=""
                     cardImageAlt="Focus Iris controller hardware implementation"

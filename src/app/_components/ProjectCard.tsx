@@ -1,7 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from "next/link";
-import {AiFillGithub} from "rocketicons/ai";
 
 interface ProjectCard {
     cardImageUrl: string;

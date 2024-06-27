@@ -3,8 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as Three from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
-import { FlyControls } from 'three/addons/controls/FlyControls.js';
+// import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+// import { FlyControls } from 'three/addons/controls/FlyControls.js';
 import { STLLoader } from 'three-stdlib'
 
 interface ThreeSceneProps {

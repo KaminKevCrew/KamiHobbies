@@ -6,8 +6,8 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-wrap justify-center bg-base-100 from-[#2e026d] to-[#15162c] text-white">
-      <Link href="/software">
-          <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
+      <Link href="/software" className="m-10">
+          <div className="card w-96 bg-neutral shadow-xl z-0">
               <figure className="h-1/2 z-0">
                   <Image src="/softwarePhotos/Arduino IDE Screenshot.png" alt="Screenshot of Arduino code" width={500} height={500}/>
               </figure>
@@ -17,8 +17,8 @@ export default async function Home() {
               </div>
           </div>
       </Link>
-      <Link href="/hardware">
-          <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
+      <Link href="/hardware" className="m-10">
+          <div className="card w-96 bg-neutral shadow-xl z-0">
               <figure className="h-1/2 z-0">
                   <Image src="/hardwarePhotos/PCB Screenshot Example.png" alt="Screenshot of PCB 3D Model" width={500} height={500}/>
               </figure>
@@ -28,8 +28,8 @@ export default async function Home() {
               </div>
           </div>
       </Link>
-      <Link href="/3dModeling">
-          <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
+      <Link href="/3dModeling" className="m-10">
+          <div className="card w-96 bg-neutral shadow-xl z-0">
               <figure className="h-1/2 z-0">
                   <Image src="/CADPhotos/3d Modeling Screenshot.png" alt="Screenshot of 3D CAD Model" width={500} height={500}/>
               </figure>
@@ -39,8 +39,8 @@ export default async function Home() {
               </div>
           </div>
       </Link>
-      <Link href="">
-          <div className="card w-96 bg-neutral shadow-xl z-0 m-10">
+      <Link href="" className="m-10">
+          <div className="card w-96 bg-neutral shadow-xl z-0">
               <figure className="h-1/2 z-0">
                   <Image src="" alt="1991 Toyota Supra" width={500} height={500}/>
               </figure>

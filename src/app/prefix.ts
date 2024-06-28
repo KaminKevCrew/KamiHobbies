@@ -1,3 +1,3 @@
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH ?? 'KamiHobbies';
+const prefix = process.env.NEXT_PUBLIC_ENV === 'production' ? '/KamiHobbies' : '';
 
 export { prefix };

@@ -4,6 +4,8 @@ import React from "react";
 import { prefix } from './prefix';
 
 export default async function Home() {
+    console.log(process.env.NEXT_PUBLIC_ENV);
+    console.log("You should have base path above this message.")
   return (
     <main className="flex min-h-screen flex-wrap justify-center bg-base-100 from-[#2e026d] to-[#15162c] text-white">
       <Link href="/software" className="m-10">

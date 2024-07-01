@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 import { AiFillBook, AiFillLinkedin, AiFillGithub } from "rocketicons/ai";
+import ProfilePic from '../../../public/Profile Photo.jpg'
 
 export default function NavBar() {
 
@@ -27,7 +28,7 @@ export default function NavBar() {
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="avatar">
                         <div className="rounded w-16">
-                            <Image src="/Profile Photo.jpg"
+                            <Image src={ ProfilePic }
                                    width={100}
                                    height={100}
                                    alt="Kevin Kaminski Profile Picture"/>

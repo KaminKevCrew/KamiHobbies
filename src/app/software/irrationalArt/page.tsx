@@ -1,6 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
+import E500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png'
+import Phi500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfPhi.png'
+import Pi500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfPi.png'
+import RootTwo500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfRootTwo.png'
+import E20kDigs from '../../../../public/softwarePhotos/IrrationalArt20kDigitsOfE.png'
+import Phi20kDigs from '../../../../public/softwarePhotos/IrrationalArt20kDigitsOfPhi.png'
+import Pi20kDigs from '../../../../public/softwarePhotos/IrrationalArt20kDigitsOfPi.png'
+import RootTwo20kDigs from '../../../../public/softwarePhotos/IrrationalArt20kDigitsOfRootTwo.png'
+
 
 export default function IrrationalArt() {
 
@@ -9,7 +18,7 @@ export default function IrrationalArt() {
             <div className="carousel carousel-center rounded-box w-full space-x-4 p-4">
                 <div id="slide1" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt500DigitsOfE.png"
+                        src={ E500Digs }
                         alt="500 Digits of E"
                         height={500}
                         width={500}
@@ -19,7 +28,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide2" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt500DigitsOfPhi.png"
+                        src={ Phi500Digs }
                         alt="500 Digits of Phi"
                         height={500}
                         width={500}
@@ -29,7 +38,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide3" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt500DigitsOfPi.png"
+                        src={ Pi500Digs }
                         alt="500 Digits of Pi"
                         height={500}
                         width={500}
@@ -39,7 +48,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide4" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt500DigitsOfRootTwo.png"
+                        src= { RootTwo500Digs }
                         alt="500 Digits of Root Two"
                         height={500}
                         width={500}
@@ -49,7 +58,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide5" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt20kDigitsOfE.png"
+                        src={ E20kDigs }
                         alt="20,000 Digits of E"
                         height={500}
                         width={500}
@@ -59,7 +68,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide6" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt20kDigitsOfPhi.png"
+                        src={ Phi20kDigs }
                         alt="20,000 Digits of Phi"
                         height={500}
                         width={500}
@@ -69,7 +78,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide7" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt20kDigitsOfPi.png"
+                        src={ Pi20kDigs }
                         alt="20,000 Digits of Pi"
                         height={500}
                         width={500}
@@ -79,7 +88,7 @@ export default function IrrationalArt() {
                 </div>
                 <div id="slide8" className="carousel-item flex-col items-center">
                     <Image
-                        src="/softwarePhotos/IrrationalArt20kDigitsOfRootTwo.png"
+                        src={ RootTwo20kDigs }
                         alt="20,000 Digits of Root Two"
                         height={500}
                         width={500}

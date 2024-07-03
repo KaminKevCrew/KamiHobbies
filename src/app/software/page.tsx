@@ -9,7 +9,7 @@ import LensMotorControllerProject from '../../../public/LensMotorControllerProje
 export default function Software() {
 
     return(
-        <div className="z-0 flex flex-wrap">
+        <div className="z-0 flex flex-wrap justify-center">
             <Link href="/software/irrationalArt" className="m-10">
                 <ProjectCardWithImage
                     cardImage={ IrrationalArt500DigitsOfE }

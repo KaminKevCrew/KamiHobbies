@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ProjectCard from "~/app/_components/ProjectCard";
+import ProjectCardWithImage from "~/app/_components/ProjectCardWithImage";
 import {CardBadges} from "~/app/_components/cardBadges";
 import IrrationalArt500DigitsOfE from '../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png'
 
@@ -9,8 +10,8 @@ export default function Software() {
     return(
         <div className="z-0 flex flex-wrap">
             <Link href="/software/irrationalArt" className="m-10">
-                <ProjectCard
-                    cardImageUrl={ '../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png' }
+                <ProjectCardWithImage
+                    cardImage={ IrrationalArt500DigitsOfE }
                     cardImageAlt="500 Digits of E"
                     cardTitle="Irrational Art"
                     cardText="A 2D mapper of decimal digits, mapped to a unit circle."

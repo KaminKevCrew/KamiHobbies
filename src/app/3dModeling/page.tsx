@@ -1,6 +1,6 @@
 import React from 'react';
 import CADProjectCard from "~/app/_components/CADProjectCard";
-import { CardBadges } from "~/app/_components/cardBadges";
+import { CardBadges } from "~/app/_components/CardBadges";
 
 // const Projects: React.FC = () => {
 export default function Page() {

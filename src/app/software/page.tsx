@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import ProjectCard from "~/app/_components/ProjectCard";
 import ProjectCardWithImage from "~/app/_components/ProjectCardWithImage";
-import {CardBadges} from "~/app/_components/cardBadges";
+import {CardBadges} from "~/app/_components/CardBadges";
 import IrrationalArt500DigitsOfE from '../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png'
+import LensMotorControllerProject from '../../../public/LensMotorControllerProject.jpg'
 
 export default function Software() {
 
@@ -29,8 +30,8 @@ export default function Software() {
                 />
             </Link>
             <Link href="/software/customFIController" className="m-10">
-                <ProjectCard
-                    cardImageUrl=""
+                <ProjectCardWithImage
+                    cardImage={ LensMotorControllerProject }
                     cardImageAlt="Focus Iris controller hardware implementation"
                     cardTitle="Remote Control Focus Iris Lens Controller"
                     cardText="Remote Controllable focus and iris for any lens. Utilizes Maxon motors, MP6550 DC Motor

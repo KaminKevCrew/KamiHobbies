@@ -1,0 +1,9 @@
+{{- $imgs := .Page.Resources.Match "*.{jpg,jpeg,png,webp}" -}}
+<div class="gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+    {{- range $imgs -}}
+    {{- $thumb := .Fit "900x q80 webp" -}}
+    <a href="{{ .RelPermalink }}" target="_blank" rel="noopener">
+        <img src="{{ $thumb.RelPermalink }}" alt="{{ .Name | plainify }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" decoding="async" />
+    </a>
+    {{- end -}}
+</div>

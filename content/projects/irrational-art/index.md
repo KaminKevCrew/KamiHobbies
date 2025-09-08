@@ -2,11 +2,11 @@
 date = '2025-09-08T13:40:15-07:00'
 title: "irrational-art — Interactive Diagrams of Irrational Numbers"
 date: 2025-09-08
-draft: false
+draft: true
 tags: ["javascript", "visualization", "creative-coding", "math", "canvas"]
 summary: "An interactive canvas exploration of π, e, φ, and √2 inspired by Nadieh Bremer’s ‘The Art in Pi’—expanded to multiple constants with smooth pan/zoom and live digit controls."
 cover:
-image: "/images/irrational-art/cover.jpg"   # TODO: add a render/screenshot
+image: "/images/irrational-art/IrrationalArt500DigitsOfE.png"   # TODO: add a render/screenshot
 alt: "Irrational number art drawn on an HTML canvas"
 +++
 

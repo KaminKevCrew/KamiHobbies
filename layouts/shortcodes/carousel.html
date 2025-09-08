@@ -1,0 +1,174 @@
+{{- /* Params:
+match     - glob for page resources (default "*.{jpg,jpeg,png,webp}")
+width     - largest width for images (default "1600")
+q         - image quality (default "80")
+altprefix - prefix for alt text (optional)
+auto      - autoplay interval in ms (e.g., "5000"; "0" disables)
+label     - accessible label for the carousel (default: "Image carousel")
+link      - "true" | "false" wrap each slide in a to original image
+    */ -}}
+    {{- $match := .Get "match" | default "*.{jpg,jpeg,png,webp}" -}}
+    {{- $maxw := .Get "width" | default "1600" -}}
+    {{- $quality := .Get "q" | default "80" -}}
+    {{- $altprefix := .Get "altprefix" | default "" -}}
+    {{- $auto := .Get "auto" | default "0" -}}
+    {{- $label := .Get "label" | default "Image carousel" -}}
+    {{- $link := eq (.Get "link") "true" -}}
+
+    {{- $imgs := .Page.Resources.Match $match -}}
+    {{- if not $imgs -}}
+    {{- errorf "carousel: no resources matched %q in %q" $match .Page.File.Path -}}
+    {{- end -}}
+    {{- $imgs = sort $imgs "Name" -}}
+
+    {{- /* responsive widths for srcset; ensure $maxw is included */ -}}
+    {{- $widths := slice 480 800 1200 (int $maxw) -}}
+    {{- $widths = uniq (sort $widths) -}}
+
+    {{- /* Preprocess first slide for stable layout (min-height & aspect) */ -}}
+    {{- $first := index $imgs 0 -}}
+    {{- $firstLargest := $first.Resize (printf "%dx q%v webp" $maxw $quality) -}}
+
+    {{- /* More stable uid than now.UnixNano: per-page uniqueID */ -}}
+    {{- $uid := printf "ih-carousel-%s" .Page.File.UniqueID -}}
+
+    <div id="{{ $uid }}"
+         class="ih-carousel"
+         role="region"
+         aria-roledescription="carousel"
+         aria-label="{{ $label }}"
+         tabindex="0"
+         style="position:relative;overflow:hidden;border-radius:12px;min-height:{{ $firstLargest.Height }}px;">
+
+        <div class="ih-track" style="display:flex;transition:transform .4s ease;will-change:transform;">
+            {{- range $i, $img := $imgs -}}
+            {{- /* Build responsive sources */ -}}
+            {{- $srcset := slice -}}
+            {{- $largest := $img.Resize (printf "%dx q%v webp" $maxw $quality) -}}
+            {{- range $w := $widths -}}
+            {{- $r := $img.Resize (printf "%dx q%v webp" $w $quality) -}}
+            {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink $r.Width) -}}
+            {{- end -}}
+            {{- $alt := printf "%s%s" (cond (ne $altprefix "") (printf "%s — " $altprefix) "") ($img.Name | plainify) -}}
+            {{- $caption := $img.Name | replaceRE "\\..*$" "" | replaceRE "([A-Z])" " $1" | trim -}}
+
+            <figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;">
+                {{- if $link -}}<a href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">{{- end -}}
+                <img
+                        src="{{ $largest.RelPermalink }}"
+                        srcset="{{ delimit $srcset ", " }}"
+                sizes="(max-width: 900px) 100vw, {{ $maxw }}px"
+                alt="{{ $alt }}"
+                width="{{ $largest.Width }}"
+                height="{{ $largest.Height }}"
+                {{ if eq $i 0 }}loading="eager" fetchpriority="high"{{ else }}loading="lazy"{{ end }}
+                decoding="async"
+                style="display:block;width:100%;height:auto;" />
+                {{- if $link -}}</a>{{- end -}}
+                <figcaption style="position:absolute;left:0;right:0;bottom:0;
+                           background:linear-gradient(transparent, rgba(0,0,0,.55));
+                           color:#fff;padding:.5rem .75rem;font-size:.9rem;">
+                    {{ $caption }}
+                </figcaption>
+            </figure>
+            {{- end -}}
+        </div>
+
+        <!-- Controls -->
+        <button class="ih-prev" aria-label="Previous slide"
+                style="position:absolute;top:50%;left:.5rem;transform:translateY(-50%);
+                 border:none;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;
+                 width:36px;height:36px;cursor:pointer;">‹</button>
+        <button class="ih-next" aria-label="Next slide"
+                style="position:absolute;top:50%;right:.5rem;transform:translateY(-50%);
+                 border:none;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;
+                 width:36px;height:36px;cursor:pointer;">›</button>
+
+        <!-- Dots -->
+        <div class="ih-dots" role="tablist"
+             style="position:absolute;left:50%;transform:translateX(-50%);
+              bottom:.5rem;display:flex;gap:.4rem;">
+            {{- range $i, $img := $imgs -}}
+            <button class="ih-dot" role="tab" data-index="{{ $i }}"
+                    aria-label="Go to slide {{ add $i 1 }}"
+                    aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:{{ if eq $i 0 }}white{{ else }}rgba(255,255,255,.6){{ end }};
+                     cursor:pointer;"></button>
+            {{- end -}}
+        </div>
+
+        <!-- No-script fallback grid -->
+        <noscript>
+            <div class="ih-noscript" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:8px;">
+                {{- range $imgs -}}
+                {{- $thumb := .Fit "600x q80 webp" -}}
+                <img src="{{ $thumb.RelPermalink }}" alt="{{ .Name | plainify }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" />
+                {{- end -}}
+            </div>
+        </noscript>
+    </div>
+
+    <script>
+        (function(){
+            const root = document.getElementById('{{ $uid }}');
+            const track = root.querySelector('.ih-track');
+            const slides = root.querySelectorAll('.ih-slide');
+            const dots = root.querySelectorAll('.ih-dot');
+            const prev = root.querySelector('.ih-prev');
+            const next = root.querySelector('.ih-next');
+
+            let i = 0, t;
+            function update(){
+                track.style.transform = 'translateX(' + (-i * 100) + '%)';
+                dots.forEach((d, idx) => {
+                    const active = idx === i;
+                    d.style.background = active ? 'white' : 'rgba(255,255,255,.6)';
+                    d.setAttribute('aria-selected', active ? 'true' : 'false');
+                    if (active) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+                });
+            }
+            function go(n){
+                i = (n + slides.length) % slides.length;
+                update();
+            }
+            prev.addEventListener('click', () => go(i - 1));
+            next.addEventListener('click', () => go(i + 1));
+            dots.forEach(d => d.addEventListener('click', e => go(+e.currentTarget.dataset.index)));
+
+            // swipe
+            let startX = 0, dx = 0, touching = false;
+            track.addEventListener('touchstart', e => { touching = true; startX = e.touches[0].clientX; }, {passive:true});
+            track.addEventListener('touchmove',  e => { if(!touching) return; dx = e.touches[0].clientX - startX; }, {passive:true});
+            track.addEventListener('touchend',   () => {
+                touching = false;
+                if (dx > 40) go(i - 1);
+                else if (dx < -40) go(i + 1);
+                dx = 0;
+            });
+
+            // autoplay (respect prefers-reduced-motion)
+            const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const auto = prefersReduced ? 0 : {{ $auto }};
+            function start(){ if (auto > 0 && !t){ t = setInterval(() => go(i + 1), auto); } }
+            function stop(){ if (t){ clearInterval(t); t = null; } }
+            root.addEventListener('mouseenter', stop);
+            root.addEventListener('mouseleave', start);
+            root.addEventListener('focusin', stop);
+            root.addEventListener('focusout', start);
+
+            // keyboard navigation
+            root.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') { go(i - 1); e.preventDefault(); }
+                else if (e.key === 'ArrowRight') { go(i + 1); e.preventDefault(); }
+                else if (e.key === 'Home') { go(0); e.preventDefault(); }
+                else if (e.key === 'End') { go(slides.length - 1); e.preventDefault(); }
+                else if (e.key === ' ' || e.key === 'Spacebar') { // pause/play
+                    if (t) stop(); else start();
+                    e.preventDefault();
+                }
+            });
+
+            update(); start();
+        })();
+    </script>

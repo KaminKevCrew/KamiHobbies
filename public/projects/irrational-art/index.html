@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>irrational-art — Interactive Diagrams of Irrational Numbers | KamiHobbies</title>
+<meta name="keywords" content="javascript, visualization, creative-coding, math, canvas">
+<meta name="description" content="Interactive Art-in-Pi expansion&hellip;">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/projects/irrational-art/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/projects/irrational-art/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="KamiHobbies (Alt + H)">KamiHobbies</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      irrational-art — Interactive Diagrams of Irrational Numbers
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2025-09-08 00:00:00 +0000 UTC'>September 8, 2025</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+            <img loading="eager" src="http://localhost:1313/projects/irrational-art/IrrationalArt20kDigitsOfPi.png" alt="20,000 digits of π...">
+        
+</figure>
+  <div class="post-content"><blockquote>
+<p>Inspired by Nadieh Bremer’s <em>The Art in Pi</em>, <strong>irrational-art</strong> renders digit sequences from <strong>π, e, φ</strong>, and <strong>√2</strong> as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with <strong>cursor-centric pan/zoom</strong>.</p></blockquote>
+<h2 id="highlights">Highlights<a hidden class="anchor" aria-hidden="true" href="#highlights">#</a></h2>
+<ul>
+<li><strong>Multiple constants:</strong> switch between π, e, φ (golden ratio), and √2.</li>
+<li><strong>Intuitive controls:</strong> click-drag to pan; mouse wheel to zoom where the cursor points.</li>
+<li><strong>Deterministic mapping:</strong> each digit maps to a 36° direction and a stable color.</li>
+<li><strong>Snappy redraws:</strong> re-render only on interaction or input change.</li>
+</ul>
+<h2 id="screenshots">Screenshots<a hidden class="anchor" aria-hidden="true" href="#screenshots">#</a></h2>
+<div id="ih-carousel-54270d8195a7ab945e0e64413537bfc5"
+         class="ih-carousel"
+         role="region"
+         aria-roledescription="carousel"
+         aria-label="Irrational-art screenshots"
+         tabindex="0"
+         style="position:relative;overflow:hidden;border-radius:12px;aspect-ratio: 1600 / 1600;">
+
+        <div class="ih-track" style="display:flex;transition:transform .4s ease;will-change:transform;"><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt20kDigitsOfE.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt20kDigitsOfE_hu_112e8ac3a84be7e4.webp"
+                        srcset="/projects/irrational-art/IrrationalArt20kDigitsOfE_hu_df8d09f503241e78.webp 480w, /projects/irrational-art/IrrationalArt20kDigitsOfE_hu_68436e166d2712f5.webp 800w, /projects/irrational-art/IrrationalArt20kDigitsOfE_hu_281dc0d7bf706d9a.webp 1200w, /projects/irrational-art/IrrationalArt20kDigitsOfE_hu_112e8ac3a84be7e4.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt20kDigitsOfE.png"
+                width="1600"
+                height="1600"
+                loading="eager" fetchpriority="high"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt20kDigitsOfPhi.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_303d05dcc7a93b17.webp"
+                        srcset="/projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_e9f1559399cea1c7.webp 480w, /projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_e6cf7ef89528e38.webp 800w, /projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_51c06f26ddee8266.webp 1200w, /projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_303d05dcc7a93b17.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt20kDigitsOfPhi.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt20kDigitsOfPi.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_c394222afff939ce.webp"
+                        srcset="/projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_7367a32eb112a611.webp 480w, /projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_fd6bc8bfc2d33955.webp 800w, /projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_c6bb2530e4efa65b.webp 1200w, /projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_c394222afff939ce.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt20kDigitsOfPi.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt20kDigitsOfRootTwo.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_66fdd2743cfee762.webp"
+                        srcset="/projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_f8bc05eeee1326e4.webp 480w, /projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_2ce8fcf9cf6b7b1e.webp 800w, /projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_20577d09ef165961.webp 1200w, /projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_66fdd2743cfee762.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt20kDigitsOfRootTwo.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt500DigitsOfE.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt500DigitsOfE_hu_f30e6d74201cad33.webp"
+                        srcset="/projects/irrational-art/IrrationalArt500DigitsOfE_hu_937bfc82b3e4b2c7.webp 480w, /projects/irrational-art/IrrationalArt500DigitsOfE_hu_8224eec493c4e871.webp 800w, /projects/irrational-art/IrrationalArt500DigitsOfE_hu_f9c82334158c8b67.webp 1200w, /projects/irrational-art/IrrationalArt500DigitsOfE_hu_f30e6d74201cad33.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt500DigitsOfE.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt500DigitsOfPhi.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_7b7bec87430c975.webp"
+                        srcset="/projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_ec34ad22ecdb0d26.webp 480w, /projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_983d791107b60920.webp 800w, /projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_8ca256b6f97575f1.webp 1200w, /projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_7b7bec87430c975.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt500DigitsOfPhi.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt500DigitsOfPi.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt500DigitsOfPi_hu_c527524839993fd9.webp"
+                        srcset="/projects/irrational-art/IrrationalArt500DigitsOfPi_hu_692d87126248c83a.webp 480w, /projects/irrational-art/IrrationalArt500DigitsOfPi_hu_133749af349fb3f5.webp 800w, /projects/irrational-art/IrrationalArt500DigitsOfPi_hu_a57f5ba819b46686.webp 1200w, /projects/irrational-art/IrrationalArt500DigitsOfPi_hu_c527524839993fd9.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt500DigitsOfPi.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure><figure class="ih-slide" style="flex:0 0 100%;margin:0;position:relative;"><a href="/projects/irrational-art/IrrationalArt500DigitsOfRootTwo.png" target="_blank" rel="noopener"><img
+                        src="/projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_b5c74ddcbc76ba47.webp"
+                        srcset="/projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_8255cb50b5052966.webp 480w, /projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_148d8af932406c44.webp 800w, /projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_f3a3fec448d7f03.webp 1200w, /projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_b5c74ddcbc76ba47.webp 1600w"
+                sizes="(max-width: 900px) 100vw, 1600px"
+                alt="irrational-art render — IrrationalArt500DigitsOfRootTwo.png"
+                width="1600"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+                style="display:block;width:100%;height:auto;" /></a></figure></div>
+
+        <button class="ih-prev" aria-label="Previous slide"
+                style="position:absolute;top:50%;left:.5rem;transform:translateY(-50%);
+                 border:none;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;
+                 width:36px;height:36px;cursor:pointer;">‹</button>
+        <button class="ih-next" aria-label="Next slide"
+                style="position:absolute;top:50%;right:.5rem;transform:translateY(-50%);
+                 border:none;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;
+                 width:36px;height:36px;cursor:pointer;">›</button>
+
+        <div class="ih-dots" role="tablist"
+             style="position:absolute;left:50%;transform:translateX(-50%);
+              bottom:.5rem;display:flex;gap:.4rem;"><button class="ih-dot" role="tab" data-index="0"
+                    aria-label="Go to slide 1"
+                    aria-selected="true"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:white;
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="1"
+                    aria-label="Go to slide 2"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="2"
+                    aria-label="Go to slide 3"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="3"
+                    aria-label="Go to slide 4"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="4"
+                    aria-label="Go to slide 5"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="5"
+                    aria-label="Go to slide 6"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="6"
+                    aria-label="Go to slide 7"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button><button class="ih-dot" role="tab" data-index="7"
+                    aria-label="Go to slide 8"
+                    aria-selected="false"
+                    style="width:9px;height:9px;border-radius:50%;border:none;
+                     background:rgba(255,255,255,.6);
+                     cursor:pointer;"></button></div>
+
+        <noscript>
+            <div class="ih-noscript" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:8px;"><img src="/projects/irrational-art/IrrationalArt20kDigitsOfE_hu_ef7add7bd69b3723.webp" alt="IrrationalArt20kDigitsOfE.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt20kDigitsOfPhi_hu_6076b47aaf9285dc.webp" alt="IrrationalArt20kDigitsOfPhi.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt20kDigitsOfPi_hu_7a5d0fd5cdca9d75.webp" alt="IrrationalArt20kDigitsOfPi.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt20kDigitsOfRootTwo_hu_56e71e9862638072.webp" alt="IrrationalArt20kDigitsOfRootTwo.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt500DigitsOfE_hu_21e16fc45aedcd7a.webp" alt="IrrationalArt500DigitsOfE.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt500DigitsOfPhi_hu_ba2d2208cd35ac8.webp" alt="IrrationalArt500DigitsOfPhi.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt500DigitsOfPi_hu_57dc95dcab494396.webp" alt="IrrationalArt500DigitsOfPi.png" width="600" height="600" /><img src="/projects/irrational-art/IrrationalArt500DigitsOfRootTwo_hu_cc54d2d8f5a5c0b8.webp" alt="IrrationalArt500DigitsOfRootTwo.png" width="600" height="600" /></div>
+        </noscript>
+    </div>
+
+    <script>
+        (function(){
+            const root = document.getElementById('ih-carousel-54270d8195a7ab945e0e64413537bfc5');
+            const track = root.querySelector('.ih-track');
+            const slides = root.querySelectorAll('.ih-slide');
+            const dots = root.querySelectorAll('.ih-dot');
+            const prev = root.querySelector('.ih-prev');
+            const next = root.querySelector('.ih-next');
+
+            let i = 0, t;
+            function update(){
+                track.style.transform = 'translateX(' + (-i * 100) + '%)';
+                dots.forEach((d, idx) => {
+                    const active = idx === i;
+                    d.style.background = active ? 'white' : 'rgba(255,255,255,.6)';
+                    d.setAttribute('aria-selected', active ? 'true' : 'false');
+                    if (active) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+                });
+            }
+            function go(n){
+                i = (n + slides.length) % slides.length;
+                update();
+            }
+            prev.addEventListener('click', () => go(i - 1));
+            next.addEventListener('click', () => go(i + 1));
+            dots.forEach(d => d.addEventListener('click', e => go(+e.currentTarget.dataset.index)));
+
+            
+            let startX = 0, dx = 0, touching = false;
+            track.addEventListener('touchstart', e => { touching = true; startX = e.touches[0].clientX; }, {passive:true});
+            track.addEventListener('touchmove',  e => { if(!touching) return; dx = e.touches[0].clientX - startX; }, {passive:true});
+            track.addEventListener('touchend',   () => {
+                touching = false;
+                if (dx > 40) go(i - 1);
+                else if (dx < -40) go(i + 1);
+                dx = 0;
+            });
+
+            
+            const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const auto = prefersReduced ? 0 :  5000 ;
+            function start(){ if (auto > 0 && !t){ t = setInterval(() => go(i + 1), auto); } }
+            function stop(){ if (t){ clearInterval(t); t = null; } }
+            root.addEventListener('mouseenter', stop);
+            root.addEventListener('mouseleave', start);
+            root.addEventListener('focusin', stop);
+            root.addEventListener('focusout', start);
+
+            
+            root.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') { go(i - 1); e.preventDefault(); }
+                else if (e.key === 'ArrowRight') { go(i + 1); e.preventDefault(); }
+                else if (e.key === 'Home') { go(0); e.preventDefault(); }
+                else if (e.key === 'End') { go(slides.length - 1); e.preventDefault(); }
+                else if (e.key === ' ' || e.key === 'Spacebar') { if (t) stop(); else start(); e.preventDefault(); }
+            });
+
+            update(); start();
+        })();
+    </script>
+
+<h2 id="how-it-works-short">How it works (short)<a hidden class="anchor" aria-hidden="true" href="#how-it-works-short">#</a></h2>
+<p><strong>Digit → step.</strong> Each digit <code>0–9</code> selects a slice on the unit circle (<code>digit * 36°</code>). That slice becomes a small vector <code>(dx, dy)</code> and a color from a fixed palette. Chaining thousands of these vectors yields a path that “walks” the plane.</p>
+<p><strong>Rendering.</strong> The canvas iterates digits, accumulates positions, and strokes each segment with the digit’s color. Inputs (constant, digit count, custom text) are normalized before draw.</p>
+<h2 id="the-hard-part-precise-mouse-interaction-on-a-transformed-canvas">The hard part: precise mouse interaction on a transformed canvas<a hidden class="anchor" aria-hidden="true" href="#the-hard-part-precise-mouse-interaction-on-a-transformed-canvas">#</a></h2>
+<p>HTML Canvas 2D doesn’t give you a built-in inverse transform, so translating <strong>screen</strong> coordinates (mouse events) into <strong>world</strong> coordinates (after pan/zoom) is the tricky bit. I solved this by <strong>wrapping the 2D context</strong> and mirroring its transform with an <code>SVGMatrix</code>, then exposing a single helper method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// ctx.transformedPoint(x, y) → world-space point under the cursor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">svg</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElementNS</span>(<span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>, <span style="color:#e6db74">&#34;svg&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pt</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">createSVGPoint</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">xform</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">createSVGMatrix</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...override save/restore/translate/scale/rotate/transform/setTransform
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// to keep xform in sync with the canvas context...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">transformedPoint</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pt</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>; <span style="color:#a6e22e">pt</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pt</span>.<span style="color:#a6e22e">matrixTransform</span>(<span style="color:#a6e22e">xform</span>.<span style="color:#a6e22e">inverse</span>());
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>With <code>transformedPoint</code>, pan and zoom become straightforward and feel correct at any scale:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastX</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">lastY</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">dragStart</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// PAN: world-space delta between drag start and current cursor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mousedown&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lastX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetX</span>; <span style="color:#a6e22e">lastY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetY</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">dragStart</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">transformedPoint</span>(<span style="color:#a6e22e">lastX</span>, <span style="color:#a6e22e">lastY</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mousemove&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lastX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetX</span>; <span style="color:#a6e22e">lastY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetY</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">dragStart</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">transformedPoint</span>(<span style="color:#a6e22e">lastX</span>, <span style="color:#a6e22e">lastY</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">translate</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">dragStart</span>.<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">dragStart</span>.<span style="color:#a6e22e">y</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">redraw</span>();
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mouseup&#39;</span>, () =&gt; { <span style="color:#a6e22e">dragStart</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ZOOM: anchor to the world point under the cursor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scaleFactor</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.01</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">zoom</span>(<span style="color:#a6e22e">clicks</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">transformedPoint</span>(<span style="color:#a6e22e">lastX</span>, <span style="color:#a6e22e">lastY</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">translate</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">y</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">factor</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">scaleFactor</span>, <span style="color:#a6e22e">clicks</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">scale</span>(<span style="color:#a6e22e">factor</span>, <span style="color:#a6e22e">factor</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">translate</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">x</span>, <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">y</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">redraw</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;wheel&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lastX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetX</span>; <span style="color:#a6e22e">lastY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">offsetY</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">zoom</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">deltaY</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">40</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
+</span></span><span style="display:flex;"><span>}, { <span style="color:#a6e22e">passive</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span> });
+</span></span></code></pre></div><p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Cursor-anchored zoom</strong> keeps the point you’re examining fixed beneath the mouse, avoiding the “zoom drifts away” problem.</li>
+<li><strong>World-space pan</strong> makes dragging feel consistent regardless of zoom level.</li>
+<li>Overriding transform methods ensures the mirror matrix and the canvas stay perfectly in sync.</li>
+</ul>
+<h2 id="performance-notes">Performance notes<a hidden class="anchor" aria-hidden="true" href="#performance-notes">#</a></h2>
+<ul>
+<li><strong>Redraw on demand</strong> (interaction/input changes only).</li>
+<li>Clamp zoom (<code>zMin</code>/<code>zMax</code>) to prevent runaway scales.</li>
+<li>Thin strokes + light global alpha add depth without heavy blending.</li>
+<li>Future work: chunked/progressive rendering for very large digit counts, HiDPI scaling via <code>devicePixelRatio</code>, optional <code>OffscreenCanvas</code>.</li>
+</ul>
+<h2 id="controls">Controls<a hidden class="anchor" aria-hidden="true" href="#controls">#</a></h2>
+<ul>
+<li><strong>Pan:</strong> click-drag</li>
+<li><strong>Zoom:</strong> mouse wheel (cursor-centric)</li>
+<li><strong>Switch constant / digits:</strong> UI controls (π, e, φ, √2; 500 → 20k+)</li>
+<li><strong>Reset view:</strong> select a new constant or reload</li>
+</ul>
+<h2 id="credits">Credits<a hidden class="anchor" aria-hidden="true" href="#credits">#</a></h2>
+<ul>
+<li>Concept inspired by Nadieh Bremer’s <em>The Art in Pi</em>.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/javascript/">Javascript</a></li>
+      <li><a href="http://localhost:1313/tags/visualization/">Visualization</a></li>
+      <li><a href="http://localhost:1313/tags/creative-coding/">Creative-Coding</a></li>
+      <li><a href="http://localhost:1313/tags/math/">Math</a></li>
+      <li><a href="http://localhost:1313/tags/canvas/">Canvas</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">KamiHobbies</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

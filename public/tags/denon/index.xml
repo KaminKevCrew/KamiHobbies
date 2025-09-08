@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Denon on KamiHobbies</title>
+    <link>http://localhost:1313/tags/denon/</link>
+    <description>Recent content in Denon on KamiHobbies</description>
+    <generator>Hugo -- 0.149.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/denon/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Teensy 4.1 Home Theater Controller — Serial &#43; OSC &#43; HTTPS Bridge</title>
+      <link>http://localhost:1313/projects/teensy-home-theater-controller/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/teensy-home-theater-controller/</guid>
+      <description>A Teensy 4.1 drives a full home theater: RS-232 projector/receiver/HDMI matrix, a relay for the motorized screen, and an OSC→HTTPS bridge (Python + pyvizio) for a TLS-only TV—all controllable from a custom TouchOSC layout.</description>
+    </item>
+  </channel>
+</rss>

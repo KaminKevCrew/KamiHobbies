@@ -3,6 +3,19 @@ languageCode: 'en-us'
 title: 'KamiHobbies'
 theme: ["PaperMod"]
 
+# NEW ✅
+pagination:
+  pagerSize: 9
+  path: page
+
+params:
+  mainSections: ["projects"]   # <- shows /content/projects/ on the home page
+  disableSpecial1stPost: true  # first card not “full width”
+  hideSummary: false           # show the excerpt under each card
+  cover:
+    hiddenInList: false        # show cover images on cards
+    responsiveImages: true
+
 imaging:
   resampleFilter: Lanczos
   quality: 80

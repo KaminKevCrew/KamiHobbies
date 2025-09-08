@@ -1,140 +1,115 @@
-+++
-date = '2025-09-08T13:40:15-07:00'
+---
 title: "irrational-art — Interactive Diagrams of Irrational Numbers"
 date: 2025-09-08
 draft: true
-tags: ["javascript", "visualization", "creative-coding", "math", "canvas"]
-summary: "An interactive canvas exploration of π, e, φ, and √2 inspired by Nadieh Bremer’s ‘The Art in Pi’—expanded to multiple constants with smooth pan/zoom and live digit controls."
+tags:
+  - javascript
+  - visualization
+  - creative-coding
+  - math
+  - canvas
+summary: "Interactive Art-in-Pi expansion..."
 cover:
-image: "/images/irrational-art/IrrationalArt500DigitsOfE.png"   # TODO: add a render/screenshot
-alt: "Irrational number art drawn on an HTML canvas"
-+++
-
-> Inspired by Nadieh Bremer’s *The Art in Pi*, this project turns streams of digits from multiple irrational numbers (π, e, φ, √2) into colored, directed line segments. I extended the idea to be **interactive** (pan/zoom under the cursor), **switchable between numbers**, and configurable by **digit length** or **custom input**.
-
-## TL;DR / Highlights
-- **Multiple numbers**: π, e, φ, √2 datasets (from 20k to multi-million digits).
-- **Interactive canvas**: smooth pan & scroll-wheel zoom centered on the cursor.
-- **Deterministic layout**: each digit maps to a direction & color.
-- **Composable modules**: clear separation between **rendering**, **transform management**, **interaction**, and **digit mapping**.
-
+  image: "IrrationalArt20kDigitsOfPi.png"
+  alt: "20,000 digits of π..."
 ---
 
-## Demo & Controls
-- **Switch numbers** via the nav buttons (`π`, `e`, `φ`, `√2`).
-- **Custom input**: paste digits, choose how many to render, re-generate.
-- **Pan**: click-drag anywhere on the canvas.
-- **Zoom**: mouse wheel (zoom is centered on the cursor position).
-- **Reset**: reload or pick a different number.
 
----
+> Inspired by Nadieh Bremer’s *The Art in Pi*, **irrational-art** renders digit sequences from **π, e, φ**, and **√2** as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with **cursor-centric pan/zoom**.
 
-## Architecture Overview
+## Highlights
 
+* **Multiple constants:** switch between π, e, φ (golden ratio), and √2.
+* **Intuitive controls:** click-drag to pan; mouse wheel to zoom where the cursor points.
+* **Deterministic mapping:** each digit maps to a 36° direction and a stable color.
+* **Snappy redraws:** re-render only on interaction or input change.
 
-### 1) Digit → Geometry (direction + color)
-`segment_builder.js` converts each digit (`0–9`) into a 36° step on a circle (10 slices = 360°), producing a unit step vector and a color:
+## Screenshots
 
-- **Direction**: `sin/cos(angle)` with `angle = digit × 36°`
-- **Step size**: configurable `scale` (defaults to `10`)
-- **Color**: per-digit palette (readable, high-contrast)
+{{< carousel match="IrrationalArt*.png" width="1600" q="82" altprefix="irrational-art render" auto="5000" label="Irrational-art screenshots" link="true" >}}
 
-Each incoming digit becomes a small vector. Chaining vectors produces the path.
+## How it works (short)
 
-### 2) Rendering
-`render.js` iterates digits, accumulating **start → end** positions and stroking a segment per digit:
+**Digit → step.** Each digit `0–9` selects a slice on the unit circle (`digit * 36°`). That slice becomes a small vector `(dx, dy)` and a color from a fixed palette. Chaining thousands of these vectors yields a path that “walks” the plane.
 
-- Positions accumulate so the polyline **walks** the plane.
-- Stroke style uses the digit’s mapped color.
-- Inputs (digit count, custom text) are normalized before draw.
+**Rendering.** The canvas iterates digits, accumulates positions, and strokes each segment with the digit’s color. Inputs (constant, digit count, custom text) are normalized before draw.
 
-### 3) Interaction (Pan/Zoom) — the tricky part
-**Canvas 2D** doesn’t expose an inverse transform out of the box, so mapping **screen** coordinates (mouse) to **world** coordinates (your transformed canvas space) is non-trivial. The project solves this with a well-known technique:
+## The hard part: precise mouse interaction on a transformed canvas
 
-- **`track_transforms.js`** wraps the `CanvasRenderingContext2D`, maintaining a live **SVGMatrix** mirror of the context’s transform.
-- It **overrides** `save/restore/scale/rotate/translate/transform/setTransform` to keep an accurate matrix.
-- It exposes **`ctx.transformedPoint(x, y)`**, which converts screen points into the current world space using the **inverse** of the tracked matrix.
+HTML Canvas 2D doesn’t give you a built-in inverse transform, so translating **screen** coordinates (mouse events) into **world** coordinates (after pan/zoom) is the tricky bit. I solved this by **wrapping the 2D context** and mirroring its transform with an `SVGMatrix`, then exposing a single helper method:
 
-That unlocks precise pan/zoom behaviors—e.g., zoom **around the cursor** (not the canvas origin), and pan in world units even as you zoom.
-
----
-
-## Key Interaction Code
-
-### A) Tracking the transform & inverse mapping
-From `src/track_transforms.js` (core idea excerpt):
 ```js
-// Maintain a parallel SVGMatrix transform for the canvas context.
-var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-var xform = svg.createSVGMatrix();
-
-ctx.getTransform = function () { return xform; };
-
-const savedTransforms = [];
-const save = ctx.save;
-ctx.save = function () {
-  savedTransforms.push(xform.translate(0, 0));
-  return save.call(ctx);
-};
-
-// ... similar overrides for restore/scale/rotate/translate/transform/setTransform ...
-
-const setTransform = ctx.setTransform;
-ctx.setTransform = function (a, b, c, d, e, f) {
-  xform.a = a; xform.b = b; xform.c = c;
-  xform.d = d; xform.e = e; xform.f = f;
-  return setTransform.call(ctx, a, b, c, d, e, f);
-};
-
-// Convert a screen-space point to world-space using the inverse matrix.
+// ctx.transformedPoint(x, y) → world-space point under the cursor
+const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 const pt = svg.createSVGPoint();
+let xform = svg.createSVGMatrix();
+
+// ...override save/restore/translate/scale/rotate/transform/setTransform
+// to keep xform in sync with the canvas context...
+
 ctx.transformedPoint = function (x, y) {
   pt.x = x; pt.y = y;
   return pt.matrixTransform(xform.inverse());
 };
+```
 
-let lastX = canvas.width / 2, lastY = canvas.height / 2;
-let dragStart, dragged;
+With `transformedPoint`, pan and zoom become straightforward and feel correct at any scale:
 
-canvas.addEventListener('mousedown', (evt) => {
-  lastX = evt.offsetX || evt.pageX - canvas.offsetLeft;
-  lastY = evt.offsetY || evt.pageY - canvas.offsetTop;
+```js
+let lastX = 0, lastY = 0;
+let dragStart = null;
+
+// PAN: world-space delta between drag start and current cursor
+canvas.addEventListener('mousedown', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
   dragStart = ctx.transformedPoint(lastX, lastY);
-  dragged = false;
-}, false);
+});
+canvas.addEventListener('mousemove', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
+  if (!dragStart) return;
+  const p = ctx.transformedPoint(lastX, lastY);
+  ctx.translate(p.x - dragStart.x, p.y - dragStart.y);
+  redraw();
+});
+canvas.addEventListener('mouseup', () => { dragStart = null; });
 
-canvas.addEventListener('mousemove', (evt) => {
-  lastX = evt.offsetX || evt.pageX - canvas.offsetLeft;
-  lastY = evt.offsetY || evt.pageY - canvas.offsetTop;
-  dragged = true;
-  if (dragStart) {
-    const pt = ctx.transformedPoint(lastX, lastY);
-    ctx.translate(pt.x - dragStart.x, pt.y - dragStart.y); // PAN in world space
-    redraw();
-  }
-}, false);
-
-canvas.addEventListener('mouseup', (evt) => {
-  dragStart = null;
-  if (!dragged) {
-    zoom(evt.shiftKey ? -1 : 1); // click to zoom in/out
-  }
-}, false);
-
-const scaleFactor = 1.01; // smooth zoom
+// ZOOM: anchor to the world point under the cursor
+const scaleFactor = 1.01;
 function zoom(clicks) {
-  const pt = ctx.transformedPoint(lastX, lastY); // cursor pos → world space
-  ctx.translate(pt.x, pt.y);
+  const p = ctx.transformedPoint(lastX, lastY);
+  ctx.translate(p.x, p.y);
   const factor = Math.pow(scaleFactor, clicks);
-  ctx.scale(factor, factor);                       // ZOOM around cursor
-  ctx.translate(-pt.x, -pt.y);
+  ctx.scale(factor, factor);
+  ctx.translate(-p.x, -p.y);
   redraw();
 }
+canvas.addEventListener('wheel', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
+  zoom(-e.deltaY / 40);
+  e.preventDefault();
+}, { passive: false });
+```
 
-function handleScroll(evt) {
-  const delta = evt.wheelDelta ? evt.wheelDelta / 40 : (evt.detail ? -evt.detail : 0);
-  if (delta) zoom(delta);
-  evt.preventDefault();
-}
-canvas.addEventListener('DOMMouseScroll', handleScroll, false);
-canvas.addEventListener('mousewheel', handleScroll, false);
+**Why this matters:**
+
+* **Cursor-anchored zoom** keeps the point you’re examining fixed beneath the mouse, avoiding the “zoom drifts away” problem.
+* **World-space pan** makes dragging feel consistent regardless of zoom level.
+* Overriding transform methods ensures the mirror matrix and the canvas stay perfectly in sync.
+
+## Performance notes
+
+* **Redraw on demand** (interaction/input changes only).
+* Clamp zoom (`zMin`/`zMax`) to prevent runaway scales.
+* Thin strokes + light global alpha add depth without heavy blending.
+* Future work: chunked/progressive rendering for very large digit counts, HiDPI scaling via `devicePixelRatio`, optional `OffscreenCanvas`.
+
+## Controls
+
+* **Pan:** click-drag
+* **Zoom:** mouse wheel (cursor-centric)
+* **Switch constant / digits:** UI controls (π, e, φ, √2; 500 → 20k+)
+* **Reset view:** select a new constant or reload
+
+## Credits
+
+* Concept inspired by Nadieh Bremer’s *The Art in Pi*.

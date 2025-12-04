@@ -9,6 +9,13 @@
     <lastBuildDate>Mon, 08 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Arduino</title>
+      <link>http://localhost:1313/tags/arduino/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/arduino/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Canvas</title>
       <link>http://localhost:1313/tags/canvas/</link>
       <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
@@ -20,6 +27,34 @@
       <link>http://localhost:1313/tags/creative-coding/</link>
       <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/creative-coding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Denon</title>
+      <link>http://localhost:1313/tags/denon/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/denon/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Embedded</title>
+      <link>http://localhost:1313/tags/embedded/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/embedded/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ethernet</title>
+      <link>http://localhost:1313/tags/ethernet/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ethernet/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Home-Theater</title>
+      <link>http://localhost:1313/tags/home-theater/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/home-theater/</guid>
       <description></description>
     </item>
     <item>
@@ -37,10 +72,45 @@
       <description></description>
     </item>
     <item>
+      <title>Optoma</title>
+      <link>http://localhost:1313/tags/optoma/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/optoma/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Osc</title>
+      <link>http://localhost:1313/tags/osc/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/osc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Serial</title>
+      <link>http://localhost:1313/tags/serial/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/serial/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Teensy</title>
+      <link>http://localhost:1313/tags/teensy/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/teensy/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Visualization</title>
       <link>http://localhost:1313/tags/visualization/</link>
       <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/visualization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vizio</title>
+      <link>http://localhost:1313/tags/vizio/</link>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/vizio/</guid>
       <description></description>
     </item>
   </channel>

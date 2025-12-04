@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/arduino/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/canvas/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/creative-coding/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/denon/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/embedded/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ethernet/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/home-theater/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/projects/irrational-art/</loc>
@@ -20,13 +35,31 @@
     <loc>http://localhost:1313/tags/math/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/optoma/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/osc/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/projects/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/serial/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/teensy/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/projects/teensy-home-theater-controller/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/visualization/</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vizio/</loc>
     <lastmod>2025-09-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>

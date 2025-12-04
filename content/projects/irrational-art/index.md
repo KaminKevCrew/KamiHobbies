@@ -15,7 +15,9 @@ cover:
 ---
 
 
-> Inspired by Nadieh Bremer’s *The Art in Pi*, **irrational-art** renders digit sequences from **π, e, φ**, and **√2** as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with **cursor-centric pan/zoom**.
+> Inspired by Nadieh Bremer's *The Art in Pi*, **irrational-art** renders digit sequences from **π, e, φ**, and **√2** as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with **cursor-centric pan/zoom**.
+
+**Try it live:** [irrational-art.kamihobbies.com](https://irrational-art.kamihobbies.com)
 
 ## Highlights
 

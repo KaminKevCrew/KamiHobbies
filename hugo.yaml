@@ -1,7 +1,6 @@
 baseURL: 'https://kamihobbies.com/'
 languageCode: 'en-us'
 title: 'KamiHobbies'
-theme: ["PaperMod"]
 
 # NEW ✅
 pagination:

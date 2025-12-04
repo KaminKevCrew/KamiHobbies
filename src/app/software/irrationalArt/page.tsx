@@ -127,7 +127,7 @@ export default function IrrationalArt() {
                 <strong>Digit → step.</strong> Each digit <code>0–9</code> selects a slice on the unit circle (<code>digit * 36°</code>). That slice becomes a small vector <code>(dx, dy)</code> and a color from a fixed palette. Chaining thousands of these vectors yields a path that &quot;walks&quot; the plane.
             </p>
             <p className="p-4">
-                <strong>Rendering.</strong> The canvas iterates digits, accumulates positions, and strokes each segment with the digit's color. Inputs (constant, digit count, custom text) are normalized before draw.
+                <strong>Rendering.</strong> The canvas iterates digits, accumulates positions, and strokes each segment with the digit&apos;s color. Inputs (constant, digit count, custom text) are normalized before draw.
             </p>
 
             <h2 className="text-2xl font-bold p-4">The hard part: precise mouse interaction on a transformed canvas</h2>

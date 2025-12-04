@@ -33,6 +33,8 @@ export default function LedController() {
         ESP32(ESP32-S3<br/>CAN + Web UI + I2C Master)
     end
 
+    I2C_BUS{{I²C Bus}}
+
     subgraph Gauges[Individual Gauge Boards]
         G031A[STM32G031F6<br/>Gauge 1]
         G031B[STM32G031F6<br/>Gauge 2]
@@ -54,12 +56,14 @@ export default function LedController() {
     ECU --> ESP32
     Sensors --> ESP32
 
-    ESP32 -->|I²C Broadcast| G031A
-    ESP32 -->|I²C Broadcast| G031B
-    ESP32 -->|I²C Broadcast| G031C
-    ESP32 -->|I²C Broadcast| G031D
-    ESP32 -->|I²C Broadcast| G031E
-    ESP32 -->|I²C Broadcast| G031F
+    ESP32 --> I2C_BUS
+
+    I2C_BUS --> G031A
+    I2C_BUS --> G031B
+    I2C_BUS --> G031C
+    I2C_BUS --> G031D
+    I2C_BUS --> G031E
+    I2C_BUS --> G031F
 
     G031A --> SegA
     G031B --> SegB

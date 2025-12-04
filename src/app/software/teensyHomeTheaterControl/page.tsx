@@ -121,7 +121,7 @@ void matrixRoute(int input /*1..4*/) {
 
             <h2 className="text-2xl font-bold p-4">TV via Python (pyvizio) — OSC → HTTPS</h2>
             <p className="p-4">
-                The Teensy can't do HTTPS reliably, so it sends OSC to a small Python service (on the media server). The service uses <strong>pyvizio</strong> to talk to the TV.
+                The Teensy can&apos;t do HTTPS reliably, so it sends OSC to a small Python service (on the media server). The service uses <strong>pyvizio</strong> to talk to the TV.
             </p>
             <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`# server.py (bridge)
 from pythonosc.dispatcher import Dispatcher
@@ -146,7 +146,7 @@ disp.map("/input", input_handler)
 BlockingOSCUDPServer(("0.0.0.0", 5005), disp).serve_forever()`}</code></pre>
 
             <p className="p-4">
-                On the Teensy side you send <code>/power</code> or <code>/input</code> to the bridge's IP:5005:
+                On the Teensy side you send <code>/power</code> or <code>/input</code> to the bridge&apos;s IP:5005:
             </p>
             <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`void tvCommand(int type, int param) {
   const char* addr = (type == PW) ? "/power" : "/input";
@@ -160,7 +160,7 @@ BlockingOSCUDPServer(("0.0.0.0", 5005), disp).serve_forever()`}</code></pre>
 
             <h2 className="text-2xl font-bold p-4">Display Modes & Screen Relay (with planned warm-up delay)</h2>
             <p className="p-4">
-                Currently, switching modes automatically turns <strong>off</strong> the "other" display (TV vs projector) and moves the screen. I'm adding a <strong>projector warm-up delay</strong> so the TV <strong>doesn't turn off</strong> and the screen <strong>doesn't drop</strong> until the projector is ready.
+                Currently, switching modes automatically turns <strong>off</strong> the &quot;other&quot; display (TV vs projector) and moves the screen. I&apos;m adding a <strong>projector warm-up delay</strong> so the TV <strong>doesn&apos;t turn off</strong> and the screen <strong>doesn&apos;t drop</strong> until the projector is ready.
             </p>
             <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// Planned timing (tweak per projector spec)
 const uint32_t PROJECTOR_WARMUP_MS  = 30000; // e.g., 30s
@@ -201,7 +201,7 @@ void loop() {
 }`}</code></pre>
 
             <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4 p-4">
-                If your projector exposes a <strong>status query</strong> over RS-232 (e.g., "Lamp On / Ready"), replace the fixed delay with an actual <strong>status poll</strong> and drop the screen when it reports <strong>Ready</strong>.
+                If your projector exposes a <strong>status query</strong> over RS-232 (e.g., &quot;Lamp On / Ready&quot;), replace the fixed delay with an actual <strong>status poll</strong> and drop the screen when it reports <strong>Ready</strong>.
             </blockquote>
 
             <h2 className="text-2xl font-bold p-4">Reliability & UX Notes</h2>
@@ -211,9 +211,9 @@ void loop() {
                 <li><strong>Static IPs/DHCP reservations:</strong> make TouchOSC → Teensy and Teensy → bridge lookups deterministic.</li>
             </ul>
 
-            <h2 className="text-2xl font-bold p-4">What I'd Improve Next</h2>
+            <h2 className="text-2xl font-bold p-4">What I&apos;d Improve Next</h2>
             <ul className="list-disc list-inside p-4 space-y-2">
-                <li><strong>Implement warm-up delay</strong> with <strong>projector status polling</strong> so the screen won't move down until the projector is up and running.</li>
+                <li><strong>Implement warm-up delay</strong> with <strong>projector status polling</strong> so the screen won&apos;t move down until the projector is up and running.</li>
                 <li><strong>Command retries</strong> + readbacks (parse device responses to confirm state).</li>
                 <li><strong>Check state</strong> for seamless restarts, and to show current status on TouchOSC interface.</li>
                 <li><strong>On-device TLS</strong> option (bearSSL or an ESP32 co-processor) to retire the bridge.</li>

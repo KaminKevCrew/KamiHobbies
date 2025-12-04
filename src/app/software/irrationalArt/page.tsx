@@ -18,7 +18,7 @@ export default function IrrationalArt() {
             <h1 className="text-4xl font-bold p-4">irrational-art — Interactive Diagrams of Irrational Numbers</h1>
 
             <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4 p-4">
-                Inspired by Nadieh Bremer's <em>The Art in Pi</em>, <strong>irrational-art</strong> renders digit sequences from <strong>π, e, φ</strong>, and <strong>√2</strong> as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with <strong>cursor-centric pan/zoom</strong>.
+                Inspired by Nadieh Bremer&apos;s <em>The Art in Pi</em>, <strong>irrational-art</strong> renders digit sequences from <strong>π, e, φ</strong>, and <strong>√2</strong> as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with <strong>cursor-centric pan/zoom</strong>.
             </blockquote>
 
             <div className="p-4">
@@ -124,7 +124,7 @@ export default function IrrationalArt() {
 
             <h2 className="text-2xl font-bold p-4">How it works (short)</h2>
             <p className="p-4">
-                <strong>Digit → step.</strong> Each digit <code>0–9</code> selects a slice on the unit circle (<code>digit * 36°</code>). That slice becomes a small vector <code>(dx, dy)</code> and a color from a fixed palette. Chaining thousands of these vectors yields a path that "walks" the plane.
+                <strong>Digit → step.</strong> Each digit <code>0–9</code> selects a slice on the unit circle (<code>digit * 36°</code>). That slice becomes a small vector <code>(dx, dy)</code> and a color from a fixed palette. Chaining thousands of these vectors yields a path that &quot;walks&quot; the plane.
             </p>
             <p className="p-4">
                 <strong>Rendering.</strong> The canvas iterates digits, accumulates positions, and strokes each segment with the digit's color. Inputs (constant, digit count, custom text) are normalized before draw.
@@ -132,7 +132,7 @@ export default function IrrationalArt() {
 
             <h2 className="text-2xl font-bold p-4">The hard part: precise mouse interaction on a transformed canvas</h2>
             <p className="p-4">
-                HTML Canvas 2D doesn't give you a built-in inverse transform, so translating <strong>screen</strong> coordinates (mouse events) into <strong>world</strong> coordinates (after pan/zoom) is the tricky bit. I solved this by <strong>wrapping the 2D context</strong> and mirroring its transform with an <code>SVGMatrix</code>, then exposing a single helper method:
+                HTML Canvas 2D doesn&apos;t give you a built-in inverse transform, so translating <strong>screen</strong> coordinates (mouse events) into <strong>world</strong> coordinates (after pan/zoom) is the tricky bit. I solved this by <strong>wrapping the 2D context</strong> and mirroring its transform with an <code>SVGMatrix</code>, then exposing a single helper method:
             </p>
             <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// ctx.transformedPoint(x, y) → world-space point under the cursor
 const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -185,7 +185,7 @@ canvas.addEventListener('wheel', (e) => {
 
             <h3 className="text-xl font-semibold p-4">Why this matters:</h3>
             <ul className="list-disc list-inside p-4 space-y-2">
-                <li><strong>Cursor-anchored zoom</strong> keeps the point you're examining fixed beneath the mouse, avoiding the "zoom drifts away" problem.</li>
+                <li><strong>Cursor-anchored zoom</strong> keeps the point you&apos;re examining fixed beneath the mouse, avoiding the &quot;zoom drifts away&quot; problem.</li>
                 <li><strong>World-space pan</strong> makes dragging feel consistent regardless of zoom level.</li>
                 <li>Overriding transform methods ensures the mirror matrix and the canvas stay perfectly in sync.</li>
             </ul>
@@ -208,7 +208,7 @@ canvas.addEventListener('wheel', (e) => {
 
             <h2 className="text-2xl font-bold p-4">Credits</h2>
             <p className="p-4">
-                Concept inspired by Nadieh Bremer's{' '}
+                Concept inspired by Nadieh Bremer&apos;s{' '}
                 <Link href="https://www.visualcinnamon.com/art/the-art-in-pi/" passHref legacyBehavior>
                     <a target="_blank" className="link link-primary">
                         <em>The Art in Pi</em>

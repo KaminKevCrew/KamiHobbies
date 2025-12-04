@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
+import CodeBlock from '../../_components/CodeBlock';
 import E500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png'
 import Phi500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfPhi.png'
 import Pi500Digs from '../../../../public/softwarePhotos/IrrationalArt500DigitsOfPi.png'
@@ -134,7 +135,9 @@ export default function IrrationalArt() {
             <p className="p-4">
                 HTML Canvas 2D doesn&apos;t give you a built-in inverse transform, so translating <strong>screen</strong> coordinates (mouse events) into <strong>world</strong> coordinates (after pan/zoom) is the tricky bit. I solved this by <strong>wrapping the 2D context</strong> and mirroring its transform with an <code>SVGMatrix</code>, then exposing a single helper method:
             </p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// ctx.transformedPoint(x, y) → world-space point under the cursor
+            <CodeBlock
+                language="javascript"
+                code={`// ctx.transformedPoint(x, y) → world-space point under the cursor
 const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 const pt = svg.createSVGPoint();
 let xform = svg.createSVGMatrix();
@@ -145,12 +148,15 @@ let xform = svg.createSVGMatrix();
 ctx.transformedPoint = function (x, y) {
   pt.x = x; pt.y = y;
   return pt.matrixTransform(xform.inverse());
-};`}</code></pre>
+};`}
+            />
 
             <p className="p-4">
                 With <code>transformedPoint</code>, pan and zoom become straightforward and feel correct at any scale:
             </p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`let lastX = 0, lastY = 0;
+            <CodeBlock
+                language="javascript"
+                code={`let lastX = 0, lastY = 0;
 let dragStart = null;
 
 // PAN: world-space delta between drag start and current cursor
@@ -181,7 +187,8 @@ canvas.addEventListener('wheel', (e) => {
   lastX = e.offsetX; lastY = e.offsetY;
   zoom(-e.deltaY / 40);
   e.preventDefault();
-}, { passive: false });`}</code></pre>
+}, { passive: false });`}
+            />
 
             <h3 className="text-xl font-semibold p-4">Why this matters:</h3>
             <ul className="list-disc list-inside p-4 space-y-2">

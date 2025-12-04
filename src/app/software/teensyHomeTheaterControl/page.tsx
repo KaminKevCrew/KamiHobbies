@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {AiFillGithub} from "rocketicons/ai";
+import CodeBlock from '../../_components/CodeBlock';
 
 export default function TeensyHomeTheaterControl() {
 
@@ -23,12 +24,16 @@ export default function TeensyHomeTheaterControl() {
             </ul>
 
             <h2 className="text-2xl font-bold p-4">System Architecture</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`[TouchOSC App] --OSC/UDP--> [Teensy 4.1]
+            <CodeBlock
+                language="text"
+                showLineNumbers={false}
+                code={`[TouchOSC App] --OSC/UDP--> [Teensy 4.1]
                                 |  \\__________ RS-232 (115200) ---> [HDMI Matrix]
                                 |___________ RS-232 (9600)  ---> [Denon AVR]
                                 |___________ RS-232 (9600)  ---> [Optoma Projector]
                                 |___________ GPIO (active-low) ---> [Screen Relay]
-                                \\--OSC/UDP--> [Python Bridge on Media Server] --HTTPS--> [Vizio TV]`}</code></pre>
+                                \\--OSC/UDP--> [Python Bridge on Media Server] --HTTPS--> [Vizio TV]`}
+            />
 
             <h3 className="text-xl font-semibold p-4">Why Teensy 4.1?</h3>
             <p className="p-4">
@@ -47,14 +52,19 @@ export default function TeensyHomeTheaterControl() {
                 <li><code>/all_off &lt;any&gt;</code> — all devices off, screen up</li>
             </ul>
 
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`bundleIN.route("/display",  displayHandler);
+            <CodeBlock
+                language="cpp"
+                code={`bundleIN.route("/display",  displayHandler);
 bundleIN.route("/input",    inputHandler);
 bundleIN.route("/volume",   volumeHandler);
 bundleIN.route("/mute",     muteHandler);
-bundleIN.route("/all_off",  allOffHandler);`}</code></pre>
+bundleIN.route("/all_off",  allOffHandler);`}
+            />
 
             <h2 className="text-2xl font-bold p-4">Device Mapping & Init</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// Serial ports and IO
+            <CodeBlock
+                language="cpp"
+                code={`// Serial ports and IO
 #define AVRSERIAL        Serial4     // Denon AVR (9600)
 #define PROJECTORSERIAL  Serial7     // Optoma (9600)
 #define MATRIXSERIAL     Serial8     // HDMI matrix (115200)
@@ -70,10 +80,13 @@ void setup() {
 
   pinMode(SCREENPIN, OUTPUT);
   digitalWrite(SCREENPIN, HIGH);     // default: screen UP (relay off)
-}`}</code></pre>
+}`}
+            />
 
             <h2 className="text-2xl font-bold p-4">AVR (Denon) Serial Control</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`enum { PW, MV, MU, SI }; // power, volume, mute, source input
+            <CodeBlock
+                language="cpp"
+                code={`enum { PW, MV, MU, SI }; // power, volume, mute, source input
 
 void avrCommand(int type, int param) {
   switch (type) {
@@ -83,10 +96,13 @@ void avrCommand(int type, int param) {
     case SI: AVRSERIAL.print("SI"); AVRSERIAL.print(param == 1 ? "DVD" : param == 2 ? "TV" : "VDP"); break;
   }
   AVRSERIAL.write(0x0D); // CR
-}`}</code></pre>
+}`}
+            />
 
             <p className="p-4"><strong>Volume ramping</strong> from TouchOSC slider:</p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`int prevVol = -1;
+            <CodeBlock
+                language="cpp"
+                code={`int prevVol = -1;
 
 void volumeHandler(OSCMessage &msg, int) {
   const int target = msg.getInt(0);
@@ -100,30 +116,39 @@ void volumeHandler(OSCMessage &msg, int) {
     }
   }
   prevVol = target;
-}`}</code></pre>
+}`}
+            />
 
             <h2 className="text-2xl font-bold p-4">Projector (Optoma) Serial Control</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// Basic power + display mode example (protocol varies by model)
+            <CodeBlock
+                language="cpp"
+                code={`// Basic power + display mode example (protocol varies by model)
 void projectorPower(bool on) {
   PROJECTORSERIAL.print("~00");   // header
   PROJECTORSERIAL.print("00 ");   // command: power
   PROJECTORSERIAL.write(on ? '1' : '0');
   PROJECTORSERIAL.write(0x0D);
-}`}</code></pre>
+}`}
+            />
 
             <h2 className="text-2xl font-bold p-4">HDMI Matrix Routing</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// Route input N to all 4 outputs (gofanco-style)
+            <CodeBlock
+                language="cpp"
+                code={`// Route input N to all 4 outputs (gofanco-style)
 void matrixRoute(int input /*1..4*/) {
   MATRIXSERIAL.print("#video_d out1,2,3,4 matrix=");
   MATRIXSERIAL.write('0' + input);
-  MATRIXSERIAL.write('\\r');
-}`}</code></pre>
+  MATRIXSERIAL.write('\\\\r');
+}`}
+            />
 
             <h2 className="text-2xl font-bold p-4">TV via Python (pyvizio) — OSC → HTTPS</h2>
             <p className="p-4">
                 The Teensy can&apos;t do HTTPS reliably, so it sends OSC to a small Python service (on the media server). The service uses <strong>pyvizio</strong> to talk to the TV.
             </p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`# server.py (bridge)
+            <CodeBlock
+                language="python"
+                code={`# server.py (bridge)
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import BlockingOSCUDPServer
 from pyvizio import Vizio
@@ -143,12 +168,15 @@ disp = Dispatcher()
 disp.map("/power", power_handler)
 disp.map("/input", input_handler)
 
-BlockingOSCUDPServer(("0.0.0.0", 5005), disp).serve_forever()`}</code></pre>
+BlockingOSCUDPServer(("0.0.0.0", 5005), disp).serve_forever()`}
+            />
 
             <p className="p-4">
                 On the Teensy side you send <code>/power</code> or <code>/input</code> to the bridge&apos;s IP:5005:
             </p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`void tvCommand(int type, int param) {
+            <CodeBlock
+                language="cpp"
+                code={`void tvCommand(int type, int param) {
   const char* addr = (type == PW) ? "/power" : "/input";
   OSCMessage msg(addr);
   msg.add(param);
@@ -156,13 +184,16 @@ BlockingOSCUDPServer(("0.0.0.0", 5005), disp).serve_forever()`}</code></pre>
   msg.send(Udp);
   Udp.endPacket();
   msg.empty();
-}`}</code></pre>
+}`}
+            />
 
             <h2 className="text-2xl font-bold p-4">Display Modes & Screen Relay (with planned warm-up delay)</h2>
             <p className="p-4">
                 Currently, switching modes automatically turns <strong>off</strong> the &quot;other&quot; display (TV vs projector) and moves the screen. I&apos;m adding a <strong>projector warm-up delay</strong> so the TV <strong>doesn&apos;t turn off</strong> and the screen <strong>doesn&apos;t drop</strong> until the projector is ready.
             </p>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// Planned timing (tweak per projector spec)
+            <CodeBlock
+                language="cpp"
+                code={`// Planned timing (tweak per projector spec)
 const uint32_t PROJECTOR_WARMUP_MS  = 30000; // e.g., 30s
 const uint32_t PROJECTOR_COOLDOWN_MS= 60000; // optional, 60s
 
@@ -198,7 +229,8 @@ void loop() {
   }
 
   // ...handle OSC, serial IO, etc...
-}`}</code></pre>
+}`}
+            />
 
             <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4 p-4">
                 If your projector exposes a <strong>status query</strong> over RS-232 (e.g., &quot;Lamp On / Ready&quot;), replace the fixed delay with an actual <strong>status poll</strong> and drop the screen when it reports <strong>Ready</strong>.

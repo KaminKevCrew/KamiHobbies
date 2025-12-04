@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import ProjectCard from "~/app/_components/ProjectCard";
 import ProjectCardWithImage from "~/app/_components/ProjectCardWithImage";
 import {CardBadges} from "~/app/_components/CardBadges";
 import IrrationalArt500DigitsOfE from '../../../public/softwarePhotos/IrrationalArt500DigitsOfE.png'
 import LensMotorControllerProject from '../../../public/LensMotorControllerProject.jpg'
+import PlaceholderImage from '../../../public/KamiHobbies Placeholder.png'
 
 export default function Software() {
 
@@ -20,8 +20,8 @@ export default function Software() {
                 />
             </Link>
             <Link href="/software/teensyHomeTheaterControl" className="m-10">
-                <ProjectCard
-                    cardImageUrl=""
+                <ProjectCardWithImage
+                    cardImage={ PlaceholderImage }
                     cardImageAlt="Teensy hardware implementation"
                     cardTitle="Teensy Home Theater Control"
                     cardText="A custom project that uses a Teensy to control my home theater via serial commands and

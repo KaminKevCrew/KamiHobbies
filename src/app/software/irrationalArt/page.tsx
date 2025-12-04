@@ -14,7 +14,31 @@ import RootTwo20kDigs from '../../../../public/softwarePhotos/IrrationalArt20kDi
 export default function IrrationalArt() {
 
     return(
-        <div>
+        <div className="container mx-auto px-4">
+            <h1 className="text-4xl font-bold p-4">irrational-art — Interactive Diagrams of Irrational Numbers</h1>
+
+            <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4 p-4">
+                Inspired by Nadieh Bremer's <em>The Art in Pi</em>, <strong>irrational-art</strong> renders digit sequences from <strong>π, e, φ</strong>, and <strong>√2</strong> as colored, directed steps on an infinite plane. I extended the concept to support multiple constants, configurable digit counts, and a robust interaction layer with <strong>cursor-centric pan/zoom</strong>.
+            </blockquote>
+
+            <div className="p-4">
+                <strong>Try it live:</strong>{' '}
+                <Link href="https://irrational-art.kamihobbies.com" passHref legacyBehavior>
+                    <a target="_blank" className="link link-primary">
+                        irrational-art.kamihobbies.com
+                    </a>
+                </Link>
+            </div>
+
+            <h2 className="text-2xl font-bold p-4">Highlights</h2>
+            <ul className="list-disc list-inside p-4 space-y-2">
+                <li><strong>Multiple constants:</strong> switch between π, e, φ (golden ratio), and √2.</li>
+                <li><strong>Intuitive controls:</strong> click-drag to pan; mouse wheel to zoom where the cursor points.</li>
+                <li><strong>Deterministic mapping:</strong> each digit maps to a 36° direction and a stable color.</li>
+                <li><strong>Snappy redraws:</strong> re-render only on interaction or input change.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold p-4">Screenshots</h2>
             <div className="carousel carousel-center rounded-box w-full space-x-4 p-4">
                 <div id="slide1" className="carousel-item flex-col items-center">
                     <Image
@@ -97,28 +121,100 @@ export default function IrrationalArt() {
                     <div className="badge badge-accent">20,000 Digits of Root Two</div>
                 </div>
             </div>
+
+            <h2 className="text-2xl font-bold p-4">How it works (short)</h2>
             <p className="p-4">
-                Ahh, Irrational Art. One of my early web development projects. This project was inspired by a project from
-                2015 called The Art in Pi by Nadieh Bremer (
-                <Link href="https://www.visualcinnamon.com/art/the-art-in-pi/" passHref legacyBehavior>
-                    <a target="_blank" className="link">
-                        link
-                    </a>
-                </Link>
-                ). Nadieh created a script that generated a PDF {"\'map\'"} of the digits of Pi.
-                I found myself inspired by this project, but I also wanted to have more interactivity rather than only
-                having a static PDF available. To accomplish this, I decided to use vanilla JavaScript, and the HTML Canvas
-                element. I also realized that there was no practical reason this project needed to be limited to Pi, so
-                I added some of the other more famous irrational numbers (namely: E, Phi, Root Two). I also decided to
-                integrate some additional functionality that would allow users to use any arbitrary sequence of digits,
-                and to allow users to select how many digits should be displayed.
+                <strong>Digit → step.</strong> Each digit <code>0–9</code> selects a slice on the unit circle (<code>digit * 36°</code>). That slice becomes a small vector <code>(dx, dy)</code> and a color from a fixed palette. Chaining thousands of these vectors yields a path that "walks" the plane.
             </p>
             <p className="p-4">
-                The original project by Nadieh utilized up to 1,000,000 digits of Pi, however I found that anything
-                substantially above 20,000 digits would end up lagging so much as to be unuseable on my computers, so I
-                limited the viewport to only display up to 20,000 digits. During development of this project, I needed to
-                learn about the HTML canvas element and how to draw in it, how to process text files in JavaScript, and
-                how to handle interactive controls in a canvas element - which is an entirely manual process!
+                <strong>Rendering.</strong> The canvas iterates digits, accumulates positions, and strokes each segment with the digit's color. Inputs (constant, digit count, custom text) are normalized before draw.
+            </p>
+
+            <h2 className="text-2xl font-bold p-4">The hard part: precise mouse interaction on a transformed canvas</h2>
+            <p className="p-4">
+                HTML Canvas 2D doesn't give you a built-in inverse transform, so translating <strong>screen</strong> coordinates (mouse events) into <strong>world</strong> coordinates (after pan/zoom) is the tricky bit. I solved this by <strong>wrapping the 2D context</strong> and mirroring its transform with an <code>SVGMatrix</code>, then exposing a single helper method:
+            </p>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`// ctx.transformedPoint(x, y) → world-space point under the cursor
+const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+const pt = svg.createSVGPoint();
+let xform = svg.createSVGMatrix();
+
+// ...override save/restore/translate/scale/rotate/transform/setTransform
+// to keep xform in sync with the canvas context...
+
+ctx.transformedPoint = function (x, y) {
+  pt.x = x; pt.y = y;
+  return pt.matrixTransform(xform.inverse());
+};`}</code></pre>
+
+            <p className="p-4">
+                With <code>transformedPoint</code>, pan and zoom become straightforward and feel correct at any scale:
+            </p>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto"><code>{`let lastX = 0, lastY = 0;
+let dragStart = null;
+
+// PAN: world-space delta between drag start and current cursor
+canvas.addEventListener('mousedown', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
+  dragStart = ctx.transformedPoint(lastX, lastY);
+});
+canvas.addEventListener('mousemove', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
+  if (!dragStart) return;
+  const p = ctx.transformedPoint(lastX, lastY);
+  ctx.translate(p.x - dragStart.x, p.y - dragStart.y);
+  redraw();
+});
+canvas.addEventListener('mouseup', () => { dragStart = null; });
+
+// ZOOM: anchor to the world point under the cursor
+const scaleFactor = 1.01;
+function zoom(clicks) {
+  const p = ctx.transformedPoint(lastX, lastY);
+  ctx.translate(p.x, p.y);
+  const factor = Math.pow(scaleFactor, clicks);
+  ctx.scale(factor, factor);
+  ctx.translate(-p.x, -p.y);
+  redraw();
+}
+canvas.addEventListener('wheel', (e) => {
+  lastX = e.offsetX; lastY = e.offsetY;
+  zoom(-e.deltaY / 40);
+  e.preventDefault();
+}, { passive: false });`}</code></pre>
+
+            <h3 className="text-xl font-semibold p-4">Why this matters:</h3>
+            <ul className="list-disc list-inside p-4 space-y-2">
+                <li><strong>Cursor-anchored zoom</strong> keeps the point you're examining fixed beneath the mouse, avoiding the "zoom drifts away" problem.</li>
+                <li><strong>World-space pan</strong> makes dragging feel consistent regardless of zoom level.</li>
+                <li>Overriding transform methods ensures the mirror matrix and the canvas stay perfectly in sync.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold p-4">Performance notes</h2>
+            <ul className="list-disc list-inside p-4 space-y-2">
+                <li><strong>Redraw on demand</strong> (interaction/input changes only).</li>
+                <li>Clamp zoom (<code>zMin</code>/<code>zMax</code>) to prevent runaway scales.</li>
+                <li>Thin strokes + light global alpha add depth without heavy blending.</li>
+                <li>Future work: chunked/progressive rendering for very large digit counts, HiDPI scaling via <code>devicePixelRatio</code>, optional <code>OffscreenCanvas</code>.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold p-4">Controls</h2>
+            <ul className="list-disc list-inside p-4 space-y-2">
+                <li><strong>Pan:</strong> click-drag</li>
+                <li><strong>Zoom:</strong> mouse wheel (cursor-centric)</li>
+                <li><strong>Switch constant / digits:</strong> UI controls (π, e, φ, √2; 500 → 20k+)</li>
+                <li><strong>Reset view:</strong> select a new constant or reload</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold p-4">Credits</h2>
+            <p className="p-4">
+                Concept inspired by Nadieh Bremer's{' '}
+                <Link href="https://www.visualcinnamon.com/art/the-art-in-pi/" passHref legacyBehavior>
+                    <a target="_blank" className="link link-primary">
+                        <em>The Art in Pi</em>
+                    </a>
+                </Link>
+                .
             </p>
         </div>
     )
